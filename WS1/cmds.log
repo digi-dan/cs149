@@ -1,0 +1,18 @@
+    1  sudo apt install gcc
+    2  sudo apt install make
+    3  pwd
+    4  cd
+    5  cd Desktop/
+    6  ls -latr ; mkdir cs149 ; cd cs149
+    7  git init
+    8  sudo apt install gcc
+    9  sudo apt install make
+   10  sudo apt install git
+   11  git init
+   12  git remote add origin https://github.com/digi-dan/cs149.git
+   13  mkdir WS1
+   14  cd WS1
+   15  git add .
+   16  wget -O out.pdf https://tinyurl.com/yy94jltt
+   17  ls -latr
+   18  history > cmds.log
