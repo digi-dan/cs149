@@ -1,0 +1,131 @@
+    1  sudo apt install gcc
+    2  sudo apt install make
+    3  pwd
+    4  cd
+    5  cd Desktop/
+    6  ls -latr ; mkdir cs149 ; cd cs149
+    7  git init
+    8  sudo apt install gcc
+    9  sudo apt install make
+   10  sudo apt install git
+   11  git init
+   12  git remote add origin https://github.com/digi-dan/cs149.git
+   13  mkdir WS1
+   14  cd WS1
+   15  git add .
+   16  wget -O out.pdf https://tinyurl.com/yy94jltt
+   17  ls -latr
+   18  history > cmds.log
+   19  git add cmds.log *.c
+   20  git add cmds.log*.c
+   21  git add cmds.lod * .c
+   22  git add cmds.log * .c
+   23  git commit -m "First commit" -a
+   24  git branch
+   25  git push -u origin master
+   26  git config --global user.email danny.garcia@sjsu.edu
+   27  git config --global user.email "danny.garcia@sjsu.edu"
+   28  git commit -m "First commit" -a
+   29  git branch
+   30  git push -u origin master
+   31  git add cmds.log *.c
+   32  git commit -m "First commit" -a
+   33  git branch
+   34  git push -u origin master
+   35  git commit -m "First commit"
+   36  git branch -M main
+   37  git push -u origin main
+   38  ls -latr
+   39  git add cmds.log
+   40  git add cmds.log *.c
+   41  git commit -m "First commit -a
+   42  git commit -m "First commit" -a
+   43  git branch
+   44  git push -u origin master
+   45  cls
+   46  man
+   47  man man
+   48  git push -u origin master
+   49  git branch
+   50  git remote add origin https://github.com/digi-dan/cs149.git
+   51  git branch -M main
+   52  git push -u origin main
+   53  git push -u origin master
+   54  git branch
+   55  git commit -m "First commit" -a
+   56  git add cmds.log
+   57  ls -latr
+   58  git commit -m "First commit" -a
+   59  git branch
+   60  git branch -M master
+   61  git branch
+   62  git commit -m "First commit" -a
+   63  git push -u origin master
+   64  git config -- global user.name "digi-dan"
+   65  git config --global user.name "digi-dan"
+   66  git config --global user.email "danny.garcia@sjsu.edu"
+   67  git config -l
+   68  git clone https://github.com/digi-dan/cs149.git
+   69  git push -u origin master
+   70  git add *.c
+   71  git add cmds.log
+   72  git add *.c
+   73  git add *.pdf
+   74  git branch
+   75  git add *.c
+   76  git add *.png
+   77  git status
+   78  git restore --staged out.pdf
+   79  git status
+   80  wget -O 1_15.c https://learn.zybooks.com/zybook/SJSUCS149SE149AndreopoulosSpring2023/chapter/1/section/15
+   81  cd desktop/
+   82  pwd
+   83  cd ~
+   84  cd Desktop/
+   85  cd cs149
+   86  cd WS1
+   87  git branch
+   88  git config
+   89  git config --system
+   90  git add *.c
+   91  ls -latr
+   92  cd Documents/
+   93  cd ~
+   94  cd Documents/
+   95  git add *.c
+   96  cd ~/Desktop/cs149/WS1
+   97  git add *.c
+   98  git status
+   99  cd Desktop/cs149/WS1
+  100  git add *.c
+  101  git commit -m "Second Commit" -a
+  102  git push -u origin master
+  103  git status
+  104  git branch
+  105  git push -u origin master
+  106  cd
+  107  cd Desktop/
+  108  git clone https://github.com/digi-dan/cs149.git cs149_danny
+  109  cd Desktop/
+  110  git clone https://github.com/digi-dan/cs149.git  cs149_DannyGarcia
+  111  date
+  112  pwd
+  113  cs ~
+  114  cls
+  115  clear
+  116  date
+  117  pwd
+  118  cd ~
+  119  cd Desktop/
+  120  ls - latr ; mkdir ws2 ; cd ws2
+  121  clear
+  122  date
+  123  pwd
+  124  cd ~
+  125  cd Desktop/
+  126  ls -latr ; mkdir ws2 ; cd ws2
+  127  echo $?
+  128  man ps
+  129  ps aux
+  130  top
+  131  history > worksheet2.log
