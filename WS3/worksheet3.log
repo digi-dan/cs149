@@ -1,0 +1,33 @@
+    1  history
+    2  cd cs149
+    3  mkdir WS3
+    4  ls -latr
+    5  cd ~
+    6  cd Desktop/
+    7  mv *.c /cs149/WS3
+    8  mv *.c ~ /cs149/WS3
+    9  mv *.c ~/cs149/WS3
+   10  mv *.c ~/Desktop/cs149/WS3
+   11  cd cs149
+   12  cd WS3
+   13  ls -latr
+   14  git add *.c
+   15  git branch
+   16  git commit -m "WS3 C files
+git commit -m "WS3 C files" -a
+
+
+   17  git commit -m "WS3 C files" -a
+   18  git branch
+   19  git push -u origin master
+   20  wget https://github.com/torvalds/linux/archive/master.zip
+   21  unzip master.zip
+   22  cd linux-master
+   23  pwd
+   24  alias l='ls -latr'
+   25  l
+   26  find . -name mem.c
+   27  find . -name mem.c | xargs head
+   28  find . -name mem.c | xargs grep 86
+   29  cd ..
+   30  history > worksheet3.log
