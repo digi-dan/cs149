@@ -1,0 +1,40 @@
+    1  clear
+    2  cd Desktop/
+    3  cd cs149
+    4  ls -latr
+    5  mk dir WS4
+    6  mkdir WS4
+    7  cd WS4
+    8  ls -latr
+    9  cd..
+   10  cd ..
+   11  *.c > cs149/WS4
+   12  mv *.c cs149/WS4
+   13  cd cs149/WS4
+   14  ls -latr
+   15  git add .
+   16  git commit -m "C Files commit" -a
+   17  git branch
+   18  git status
+   19  git push -u origin master
+   20  git status
+   21  wget http://www.apuebook.com/src.3e.tar.gz
+   22  gunzip src.3e.tar.gz
+   23  tar xvf src.3e.tar
+   24  cd apue.3e
+   25  cd proc
+   26  make all
+   27  ./fork1
+   28  ./fork2
+   29  sudo apt-get install make
+   30  ./fork2
+   31  hello
+   32  pwd
+   33  pstree
+   34  ps -a -f -x
+   35  ps -a -f -x | more
+   36  top
+   37  man kill
+   38  echo $?
+   39  echo $$
+   40  history > worksheet4.log
