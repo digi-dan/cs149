@@ -1,0 +1,13 @@
+    1  cd ~/Desktop/
+    2  mkdir WS7
+    3  cd WS7
+    4  ls | wc
+    5  ls | sort
+    6  ls | sort | wc
+    7  ls -latr /bin/ > a.out
+    8  cat a.out | more
+    9  strace | ls
+   10  strace ls
+   11  du -sh .
+   12  df -i
+   13  history > worksheet7.log
