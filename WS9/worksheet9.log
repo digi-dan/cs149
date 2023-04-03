@@ -1,0 +1,11 @@
+    1  make all
+    2  cd signals
+    3  ./sigusr &
+    4  make all
+    5  ./sigusr &
+    6  kill -SIGUSR1 pid
+    7  kill -SIGUSR1 3826
+    8  kill -SIGUSR2 3826
+    9  kill -SIGCONT 3826
+   10  kill -9 3826
+   11  history > worksheet9.log
