@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
+#include <unistd.h>
 
 /**
  *  TRACE_NODE_STRUCT is a linked list of pointer to function identifiers
@@ -23,16 +24,6 @@ struct TRACE_NODE_STRUCT{
 };
 typedef struct TRACE_NODE_STRUCT TRACE_NODE;
 static TRACE_NODE *TRACE_TOP = NULL;    // ptr to the top of the stack
-
-// Recursive function that prints the contents of all nodes in the linked list
-void PrintNodes(TRACE_NODE *head){
-    if(head == NULL){
-        return;
-    }
-
-    printf("Index: %d; Line: %s\n", head ->index, head->line);
-    PrintNodes(head->next);
-}
 
 /**
 *  function PUSH_TRACE
@@ -94,6 +85,20 @@ void POP_TRACE(){   // remove the op of the stacke
  * Printing the function call sequence the other way around is also ok:
  * funcC:funcB:funcA:global
 */
+
+// Recursive function that prints the contents of all nodes in the linked list
+void PrintNodes(TRACE_NODE *head){
+    PUSH_TRACE("PrintNodes");
+
+    TRACE_NODE* current = head;
+    while(current != NULL){
+        printf("Index: %d. Line: %s", current->index, current->line);
+        current = current->next;
+    }
+    
+    POP_TRACE();
+}
+
 char *PRINT_TRACE(){
     int depth = 50; // A max of 50 levels in the stack will be combined in a string for printing out
     int i, length, j;
@@ -185,34 +190,51 @@ int add_column(int** array, int rows, int columns){
 */
 void make_extend_array(){
     PUSH_TRACE("make_extend_array");
-    int i, j;
-    int **array;
-    int ROW = 4;
-    int COL = 3;
 
-    // make array
-    array = (int**)malloc(sizeof(int*)*4); // 4 rows
-    for(i = 0; i < ROW; i++){
-        array[i] = (int*) malloc(sizeof(int)*3);    // 3 columns
-        for(j = 0; j < COL; j++)
-            array[i][j] = 10 * i +j;
-    }   // for
+    int lines = 10;
+    char** function = (char**)malloc(sizeof(char*)*lines);
+    TRACE_NODE* node = NULL;
 
-    // display array
-    for(i = 0; i < ROW; i ++)
-        for(j = 0; j < COL; j++)
-            printf("array[%d][%d] = %d\n", i, j, array[i][j]);
-    // and a new column
-    int NEWCOL = add_column(array, ROW, COL);
+    int i = 0;
+    char buffer[100];
+    while(fgets(buffer, 100, stdin) != NULL){
+        if(buffer[lines -1] == '\n'){
+            buffer[lines - 1] = '\0';
+        }
 
-    // now display the array again
-    for(i = 0; i < ROW; i++)
-        for(j = 0; j < NEWCOL; j++)
-            printf("array[%d][%d] = %d\n", i, j, array[i][j]);
-    // now deallocate it
-    for(i = 0; i < ROW; i++)
-        free((void*)array[i]);
-    free((void*)array);
+        if(i >= lines){
+            lines *= 2;
+            function = realloc(function, sizeof(char*) * lines);
+        }
+
+        function[i] = (char*) malloc(100);
+        strcpy(function[i], buffer);
+
+        TRACE_NODE* tnode = (TRACE_NODE*)malloc(sizeof(TRACE_NODE));
+        tnode->line = function[i];
+        tnode->index = i;
+
+        if(node == NULL){
+            node = tnode;
+        } else{
+            while(node->next != NULL){
+                node = node->next;
+            }
+            node->next = tnode;
+        }
+        i++;
+    }
+
+    PrintNodes(node);
+
+    free(function);
+    TRACE_NODE* current = node;
+    while(current != NULL){
+        TRACE_NODE* temp = current;
+        current = current->next;
+        free(temp->line);
+        free(temp);
+    }
 
     POP_TRACE();
     return;
@@ -222,8 +244,17 @@ void make_extend_array(){
 int main(){
     PUSH_TRACE("main");
 
-    make_extend_array();
+    FILE* fp = fopen("memtrace.out", "w");
+    if(fp == NULL){
+        printf("Error opening file\n");
+        return 1;
+    }
+    dup2(fileno(fp), STDOUT_FILENO);
+    setbuf(stdout, NULL);
 
+    make_extend_array();
+    fclose(fp);
+    
     POP_TRACE();
     return(0);
 }   // end main
