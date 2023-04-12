@@ -90,11 +90,11 @@ void POP_TRACE(){   // remove the op of the stacke
 void PrintNodes(TRACE_NODE *head){
     PUSH_TRACE("PrintNodes");
 
-    TRACE_NODE* current = head;
-    while(current != NULL){
-        printf("Index: %d. Line: %s", current->index, current->line);
-        current = current->next;
+    if(head == NULL){
+        return;
     }
+    printf("Index: %d. Line: %s\n", head->index, head->line);
+    PrintNodes(head->next);
     
     POP_TRACE();
 }
@@ -191,9 +191,19 @@ int add_column(int** array, int rows, int columns){
 void make_extend_array(){
     PUSH_TRACE("make_extend_array");
 
+    FILE* fp = fopen("memtrace.out", "w");
+    if(fp == NULL){
+        printf("Error opening file\n");
+        return;
+    }
+
     int lines = 10;
     char** function = (char**)malloc(sizeof(char*)*lines);
     TRACE_NODE* node = NULL;
+
+    int t = dup(STDOUT_FILENO);
+    dup2(fileno(fp), STDOUT_FILENO);
+    setbuf(stdout, NULL);
 
     int i = 0;
     char buffer[100];
@@ -202,8 +212,8 @@ void make_extend_array(){
             buffer[lines - 1] = '\0';
         }
 
-        if(i >= lines){
-            lines *= 2;
+        if(i >= lines -1){
+            lines += 10;
             function = realloc(function, sizeof(char*) * lines);
         }
 
@@ -225,7 +235,9 @@ void make_extend_array(){
         i++;
     }
 
+    dup2(t, STDOUT_FILENO);
     PrintNodes(node);
+    dup2(fileno(fp), STDOUT_FILENO);
 
     free(function);
     TRACE_NODE* current = node;
@@ -236,25 +248,18 @@ void make_extend_array(){
         free(temp);
     }
 
+    dup2(t,STDOUT_FILENO);
+    fclose(fp);
     POP_TRACE();
-    return;
 }   // end make_extend_array
 
 // function main
 int main(){
     PUSH_TRACE("main");
 
-    FILE* fp = fopen("memtrace.out", "w");
-    if(fp == NULL){
-        printf("Error opening file\n");
-        return 1;
-    }
-    dup2(fileno(fp), STDOUT_FILENO);
-    setbuf(stdout, NULL);
-
     make_extend_array();
-    fclose(fp);
     
+    POP_TRACE();
     POP_TRACE();
     return(0);
 }   // end main
