@@ -155,8 +155,83 @@ int main(int argc, char* argv[]){
                 int pid1 = fork();
                 if(pid1 < 0)
                     return 1;
-                if(pid1 == 0)
+                if(pid1 == 0){
+                    sprintf(fileName, "%d.out", getpid());
+                    FILE* fdout = fopen(fileName, "a");
+                    sprintf(fileName, "%d.err", getpid());
+                    FILE* fderr = fopen(fileName, "a");
+
+                    fprintf(fderr, "RESTARTING\n");
+                    fprintf(fdout, "RESTARTING\n");
+                    fclose(fdout);
+                    fclose(fderr);
+
+                    char file[31];
+                    sprintf(file, "%d.out", getpid());
+                    FILE* out = fopen(file, "a");
+                    sprintf(file, "%d.err", getpid());
+                    FILE* err = fopen(file, "a");
+
+                    fprintf(out, "Starting command %d: child %d pid of parent %d\n", node1->index, getpid(), getppid());
+                    fflush(out);
+                    char* command = strdup(commands[node1->index]);
+
+                    int size = (int)strlen(command);
+                    char **args = (char **)calloc(size, sizeof(char *));
+                    int k = 0;
+                    args[k++] = strtok(command, " ");
+
+                    while((args[k++] = strtok(NULL, " ")) != NULL) { }
+
+                    execvp(args[0], args);
+                    fprintf(err, "Could not execute: %s\n", commands[node1->index]);
+                    return 0;
+                } else{
+                    struct nlist* temp = insert(commands[i], pid1, i);
+                    temp->command = node1->command;
+                    temp->index = node1->index;
+                    temp->starttime = starttime;
+                }
             }
         }
+
+        for(int m = 0; m < count; m++){
+            free(commands[m]);
+        }
+        free(commands);
+
+        for(int n = 0; n < HASHSIZE; n++){
+            struct nlist* temp = hashtab[n];
+            while(temp != NULL){
+                struct nlist* next = temp->next;
+                free(temp);
+                temp = next;
+            }
+            hashtab[n] = NULL;
+        }
     }
+    else{
+        char file[31];
+        sprintf(file, "%d.out", getpid());
+        FILE* out = fopen(file, "a");
+        sprintf(file, "%d.err", getpid());
+        FILE* err = fopen(file, "a");
+
+        fprintf(out, "Starting command %d: child %d pid of parent %d\n", i, getpid(), getppid());
+        fflush(out);
+        char* command = strdup(commands[i]);
+
+        int size = (int)strlen(command);
+        char **args = (char **)calloc(size, sizeof(char *));
+        int k = 0;
+        args[k++] = strtok(command, " ");
+
+        while((args[k++] = strtok(NULL, " ")) != NULL) { }
+
+        execvp(args[0], args);
+        fprintf(err, "Could not execute: %s\n", commands[i]);
+        return 0;
+    }
+
+    return 0;
 }
