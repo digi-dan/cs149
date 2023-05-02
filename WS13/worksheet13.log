@@ -1,0 +1,27 @@
+    1  cd apue.3e
+    2  ls
+    3  rsync -arv filedir/ filedir1/
+    4  cp -r filedir/ filedir2/
+    5  ls -latr filedir1/
+    6  ls -latr filedir2/
+    7  cd filedir1/
+    8  df
+    9  du
+   10  locate access
+   11  locate zap.c
+   12  sudo apt install mlocate
+   13  locate zap.c
+   14  stat
+   15  stat unlink.c
+   16  ln
+   17  ln unlink.c
+   18  find unlink.c
+   19  rm unlink.c
+   20  rsync zap.c
+   21  stat zap.c
+   22  cd ..
+   23  history > cs149/WS13/worksheet13.log
+   
+   // What difference do you observe between the two directories (you can edit the log file to record your answer)?
+   // The difference that I observed is the directory written with rsync (filedir1) has an earlier modified date
+   // While the directory written with cp (filedir2) had a modified date of today 
